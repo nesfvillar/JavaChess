@@ -1,5 +1,7 @@
 package com.chess;
 
+import java.util.Arrays;
+
 public class Chess {
     public static final Piece emptySpace = new EmptySpace();
     public static final Piece whitePawn = new WhitePawn();
@@ -64,13 +66,27 @@ public class Chess {
 
     public boolean movePiece(int xo, int yo, int xf, int yf) {
         Piece pieceO = getPieceAt(xo, yo);
-        Piece pieceF = getPieceAt(xf, yf);
-        if (pieceO != emptySpace && pieceO.color != pieceF.color) {
-            removePieceAt(xo, yo);
-            setPieceAt(xf, yf, pieceO);
-            return true;
+        if (pieceO == emptySpace) {
+            System.out.println("The selected square to move " + xo + ", " + yo + " is empty");
+            return false;
         }
-        return false;
+
+        Piece pieceF = getPieceAt(xf, yf);
+        if (pieceO.color == pieceF.color) {
+            System.out.println("The piece to capture is the same color as the moving piece");
+            return false;
+        }
+
+        int[] current_movement = new int[]{xf - xo, yf - yo};
+        int[][] possible_movements = pieceO.getMovements();
+        if (!Arrays.stream(possible_movements).anyMatch(m -> Arrays.equals(current_movement, m))) {
+            System.out.println("The selected piece cannot do the move " + Arrays.toString(current_movement));
+            return false;
+        }
+
+        removePieceAt(xo, yo);
+        setPieceAt(xf, yf, pieceO);
+        return true;
     }
 
     @Override
