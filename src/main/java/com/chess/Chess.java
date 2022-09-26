@@ -1,7 +1,7 @@
 package com.chess;
 
 public class Chess {
-    public static final Piece emptySpace = new Piece();
+    public static final Piece emptySpace = new EmptySpace();
     public static final Piece whitePawn = new WhitePawn();
     public static final Piece blackPawn = new BlackPawn();
     public static final Piece whiteKnight = new WhiteKnight();
