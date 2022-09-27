@@ -64,6 +64,18 @@ public class Chess {
         return board[y][x];
     }
 
+    public boolean movePiece(String o, String f) {
+        int[] positionO = stringToPosition(o);
+        int xo = positionO[0];
+        int yo = positionO[1];
+
+        int[] positionF = stringToPosition(f);
+        int xf = positionF[0];
+        int yf = positionF[1];
+
+        return movePiece(xo, yo, xf, yf);
+    }
+
     public boolean movePiece(int xo, int yo, int xf, int yf) {
         Piece pieceO = getPieceAt(xo, yo);
         if (pieceO == emptySpace) {
@@ -87,6 +99,29 @@ public class Chess {
         removePieceAt(xo, yo);
         setPieceAt(xf, yf, pieceO);
         return true;
+    }
+
+    private int[] stringToPosition(String s) {
+        char x = s.charAt(0);
+        char y = s.charAt(1);
+        int x_num;
+        int y_num;
+
+        switch (x) {
+            case 'a' -> x_num = 0;
+            case 'b' -> x_num = 1;
+            case 'c' -> x_num = 2;
+            case 'd' -> x_num = 3;
+            case 'e' -> x_num = 4;
+            case 'f' -> x_num = 5;
+            case 'g' -> x_num = 6;
+            case 'h' -> x_num = 7;
+            default -> throw new IllegalStateException("Unexpected value: " + x);
+        }
+
+        y_num = Character.digit(y, 10) - 1;
+
+        return new int[] {x_num, y_num};
     }
 
     @Override
