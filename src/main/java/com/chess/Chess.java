@@ -17,7 +17,7 @@ public class Chess {
     public static final Piece whiteKing = new WhiteKing();
     public static final Piece blackKing = new BlackKing();
 
-    private Piece[][] board = new Piece[8][8];
+    private final Piece[][] board = new Piece[8][8];
 
     public Chess() {
         clearBoard();
